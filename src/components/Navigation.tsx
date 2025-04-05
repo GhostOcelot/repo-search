@@ -38,10 +38,7 @@ const Navigation = () => {
   }, [location.pathname])
 
   return (
-    <nav
-      ref={containerRef}
-      className="relative bg-amber-200 py-6 flex justify-center mb-8 rounded-full m-4"
-    >
+    <nav ref={containerRef} className="relative bg-amber-200 py-6 flex justify-center mb-8">
       <div
         className="absolute top-4 h-10 bg-white rounded-full transition-all duration-300"
         style={{
