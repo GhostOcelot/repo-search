@@ -15,7 +15,7 @@ const Holidays = () => {
   } = useHolidays()
 
   return (
-    <div className="flex-grow w-full max-w-[350px] mx-auto flex flex-col mb-8 px-8 gap-2">
+    <div className="flex-grow w-full mx-auto flex flex-col items-center mb-8 px-8 gap-2">
       <CustomSelect
         value={SelectedCountryCode}
         onChange={handleCountryChange}
@@ -32,13 +32,11 @@ const Holidays = () => {
         name="year"
       />
 
-      <div className="w-auto self-center mt-8">
-        {holidaysError ? (
-          <h1 className="text-center">{holidaysError}</h1>
-        ) : (
-          <HolidaysList holidays={holidays} />
-        )}
-      </div>
+      {holidaysError ? (
+        <h1 className="text-center">{holidaysError}</h1>
+      ) : (
+        <HolidaysList holidays={holidays} />
+      )}
     </div>
   )
 }

@@ -6,7 +6,7 @@ interface Props {
 
 const RepositoryList = ({ data }: Props) => {
   return (
-    <ul className="w-2/3 max-w-[600px] m-8">
+    <ul className="w-full max-w-[600px] my-8">
       <li
         key="header"
         className="font-semibold border-b-1 border-b-amber-200 py-2 pl-2 grid grid-cols-[70px_1fr]"

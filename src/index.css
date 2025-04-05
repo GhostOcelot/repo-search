@@ -1,7 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Quicksand:wght@300..700&display=swap");
 @import "tailwindcss";
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Quicksand, Helvetica, Arial, sans-serif;
   color: rgb(71, 71, 71);
   line-height: 1.5;
   font-weight: 400;
