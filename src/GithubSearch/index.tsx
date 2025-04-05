@@ -67,8 +67,7 @@ const GithubSearch = () => {
       {data && numberOfPages > 1 && (
         <Pagination page={page} numberOfPages={numberOfPages} setPage={setPage} />
       )}
-      {loading && <Loader />}
-      {data?.total_count ? <RepositoryList data={data} /> : <NoEntries />}
+      {loading ? <Loader /> : data?.total_count ? <RepositoryList data={data} /> : <NoEntries />}
     </div>
   )
 }
