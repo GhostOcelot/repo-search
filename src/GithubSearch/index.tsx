@@ -8,6 +8,7 @@ import Loader from "../components/Loader"
 import CustomSelect from "../components/CustomSelect"
 import DebouncedInput from "../components/CustomInput"
 import { ItemsPerPageOptions, sortCriteriaOptions, sortOrderOptions } from "./helpers"
+import NoEntries from "./NoEntries"
 
 const GithubSearch = () => {
   const [page, setPage] = useState(1)
@@ -66,7 +67,8 @@ const GithubSearch = () => {
       {data && numberOfPages > 1 && (
         <Pagination page={page} numberOfPages={numberOfPages} setPage={setPage} />
       )}
-      {loading ? <Loader /> : <RepositoryList data={data} />}
+      {loading && <Loader />}
+      {data?.total_count ? <RepositoryList data={data} /> : <NoEntries />}
     </div>
   )
 }
