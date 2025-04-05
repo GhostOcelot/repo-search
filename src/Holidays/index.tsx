@@ -1,38 +1,35 @@
-import { useState } from "react"
-import { Country, Holiday } from "./types"
 import HolidaysList from "./HolidaysList"
-import { useFetch } from "../hooks"
-import { OPEN_HOLIDAY_BASE_URL } from "./const"
 import CustomSelect from "../components/CustomSelect"
+import { useHolidays } from "./hooks"
 
 const Holidays = () => {
-  const [SelectedCountryCode, setSelectedCountryCode] = useState("NL")
-
-  const countriesUrl = `${OPEN_HOLIDAY_BASE_URL}/Countries?languageIsoCode=EN`
-  const holidaysUrl = `${OPEN_HOLIDAY_BASE_URL}/PublicHolidays?countryIsoCode=${SelectedCountryCode}&validFrom=2025-01-01&validTo=2025-12-31&languageIsoCode=EN`
-
-  const { data: countries } = useFetch<Country[]>(countriesUrl)
-  const { data: holidays, error: holidaysError, fetchData } = useFetch<Holiday[]>(holidaysUrl)
-
-  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    fetchData()
-    setSelectedCountryCode(e.target.value)
-  }
+  const {
+    holidays,
+    holidaysError,
+    countryOptions,
+    yearOptions,
+    SelectedCountryCode,
+    SelectedYear,
+    handleCountryChange,
+    handleYearChange,
+  } = useHolidays()
 
   return (
-    <div className="flex-grow w-full max-w-[800px] mx-auto flex flex-col mb-8 px-8">
+    <div className="flex-grow w-full max-w-[350px] mx-auto flex flex-col mb-8 px-8 gap-2">
       <CustomSelect
         value={SelectedCountryCode}
         onChange={handleCountryChange}
-        options={
-          countries?.map((country) => ({
-            value: country.isoCode,
-            label: country.name[0].text,
-          })) || []
-        }
+        options={countryOptions}
         label="country"
         name="select-country"
-        className="w-full"
+      />
+
+      <CustomSelect
+        value={SelectedYear}
+        onChange={handleYearChange}
+        options={yearOptions}
+        label="year"
+        name="year"
       />
 
       <div className="w-auto self-center mt-8">
