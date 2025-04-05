@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import GithubSearch from "./GithubSearch"
 import Holidays from "./Holidays"
 import NotFound from "./NotFound"
-import Navigation from "./Navigation"
+import Navigation from "./components/Navigation"
 
 function App() {
   return (

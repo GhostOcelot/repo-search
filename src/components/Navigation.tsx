@@ -1,6 +1,11 @@
 import { useLayoutEffect, useRef, useState } from "react"
 import { NavLink, useLocation } from "react-router-dom"
 
+interface IndicatorStyle {
+  left: number
+  width: number
+}
+
 const Navigation = () => {
   const navLinks = [
     { label: "Github search", path: "/" },
@@ -8,7 +13,7 @@ const Navigation = () => {
   ]
 
   const location = useLocation()
-  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 })
+  const [indicatorStyle, setIndicatorStyle] = useState<IndicatorStyle | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
