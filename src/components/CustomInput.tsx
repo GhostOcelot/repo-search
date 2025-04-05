@@ -17,7 +17,7 @@ const DebouncedInput = ({ label, delay, ...props }: Props) => {
         {...props}
         name={props.id || ""}
         id={props.id || ""}
-        className="w-48 px-4 py-1 my-2 rounded-full bg-cyan-50"
+        className="w-48 px-4 py-1 my-2 rounded-full bg-white"
       ></input>
     </div>
   )

@@ -40,7 +40,7 @@ const Navigation = () => {
   return (
     <nav ref={containerRef} className="relative bg-amber-200 py-6 flex justify-center mb-8">
       <div
-        className="absolute top-4 h-10 bg-cyan-50 rounded-full transition-all duration-300"
+        className="absolute top-4 h-10 bg-white rounded-full transition-all duration-300"
         style={{
           ...indicatorStyle,
         }}
