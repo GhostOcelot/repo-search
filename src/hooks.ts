@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react"
+import { INITIAL_SEARCH_QUERY } from "./GithubSearch/const"
 
 export const useFetch = <T>(url: string, autoFetch: boolean = true) => {
   const [data, setData] = useState<T | null>(null)
@@ -30,7 +31,7 @@ export const useFetch = <T>(url: string, autoFetch: boolean = true) => {
 }
 
 export const useDebounce = (value: string, delay = 700) => {
-  const [debouncedValue, setDebouncedValue] = useState("")
+  const [debouncedValue, setDebouncedValue] = useState(INITIAL_SEARCH_QUERY)
 
   useEffect(() => {
     const handler = setTimeout(() => {

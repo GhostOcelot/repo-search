@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useFetch, useDebounce } from "../hooks"
 import Pagination from "../components/Pagination"
 import { RepositoriesData, SortCriteria, SortOrder } from "./types"
-import { githubBaseUrl } from "./const"
+import { GITHUB_BASE_URL, INITIAL_SEARCH_QUERY } from "./const"
 import RepositoryList from "./RepositoryList"
 import Loader from "../Loader"
 import CustomSelect from "../components/CustomSelect"
@@ -11,7 +11,7 @@ import { ItemsPerPageOptions, sortCriteriaOptions, sortOrderOptions } from "./he
 
 const GithubSearch = () => {
   const [page, setPage] = useState(1)
-  const [query, setQuery] = useState("tony hawk")
+  const [query, setQuery] = useState(INITIAL_SEARCH_QUERY)
   const [itemsPerPage, setItemsPerPage] = useState(5)
   const [sortCriteria, setSortCriteria] = useState<SortCriteria>(SortCriteria.stars)
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.descending)
@@ -19,7 +19,7 @@ const GithubSearch = () => {
   const debouncedValue = useDebounce(query)
 
   const { data, loading } = useFetch<RepositoriesData>(
-    `${githubBaseUrl}/search/repositories?q=${debouncedValue}&page=${page}&per_page=${itemsPerPage}&sort=${sortCriteria}&order=${sortOrder}`,
+    `${GITHUB_BASE_URL}/search/repositories?q=${debouncedValue}&page=${page}&per_page=${itemsPerPage}&sort=${sortCriteria}&order=${sortOrder}`,
   )
 
   const numberOfPages = data ? Math.ceil(data.total_count / itemsPerPage) : 0

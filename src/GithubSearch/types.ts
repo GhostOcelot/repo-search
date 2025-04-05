@@ -13,13 +13,13 @@ export interface RepositoriesData {
 
 export enum SortCriteria {
   "best match" = "best-match",
-  "stars" = "stars",
-  "forks" = "forks",
+  stars = "stars",
+  forks = "forks",
   "help wanted issues" = "help-wanted-issues",
-  "updated" = "updated",
+  updated = "updated",
 }
 
 export enum SortOrder {
-  "ascending" = "asc",
-  "descending" = "desc",
+  ascending = "asc",
+  descending = "desc",
 }
