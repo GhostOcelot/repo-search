@@ -1,19 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import GithubSearch from "./GithubSearch"
-import Holidays from "./Holidays"
-import NotFound from "./NotFound"
-import Layout from "./Layout"
+import { BrowserRouter as Router } from "react-router-dom"
+import Routes from "./Routes"
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<GithubSearch />} />
-          <Route path="/holidays" element={<Holidays />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+      <Routes />
     </Router>
   )
 }

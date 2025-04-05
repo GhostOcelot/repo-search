@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { Country, Holiday } from "./types"
-// import HolidaysSelect from "./HolidaysSelect"
 import HolidaysList from "./HolidaysList"
 import { useFetch } from "../hooks"
 import { OPEN_HOLIDAY_BASE_URL } from "./const"
@@ -21,13 +20,15 @@ const Holidays = () => {
   }
 
   return (
-    <div className="w-full max-w-[800px] mx-auto flex flex-col mb-8 px-8">
+    <div className="flex-grow w-full max-w-[800px] mx-auto flex flex-col mb-8 px-8">
       <CustomSelect
         value={SelectedCountryCode}
         onChange={handleCountryChange}
         options={
-          countries?.map((country) => ({ value: country.isoCode, label: country.name[0].text })) ||
-          []
+          countries?.map((country) => ({
+            value: country.isoCode,
+            label: country.name[0].text,
+          })) || []
         }
         label="country"
         name="select-country"
