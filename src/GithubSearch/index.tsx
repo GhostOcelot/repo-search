@@ -19,8 +19,6 @@ import {
 } from "../features/githubSearchSlice"
 
 const GithubSearch = () => {
-  // const [query, setQuery] = useState(INITIAL_SEARCH_QUERY)
-
   const { sortCriteria, sortOrder, page, itemsPerPage, query } = useSelector(
     (state: RootState) => state.githubSearch,
   )
@@ -32,7 +30,10 @@ const GithubSearch = () => {
     `${GITHUB_BASE_URL}/search/repositories?q=${debouncedValue}&page=${page}&per_page=${itemsPerPage}&sort=${sortCriteria}&order=${sortOrder}`,
   )
 
-  const numberOfPages = data ? Math.ceil(data.total_count / itemsPerPage) : 0
+  const numberOfPages = Math.min(
+    1000 / itemsPerPage,
+    data ? Math.ceil(data.total_count / itemsPerPage) : 0,
+  )
 
   return (
     <div className="flex-grow flex flex-col items-center px-8 mt-8">
