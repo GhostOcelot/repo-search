@@ -40,7 +40,7 @@ const SideMenu = ({ className }: Props) => {
       </button>
 
       <div
-        className={`flex flex-col fixed gap-2 top-0 left-0 h-full w-56 pt-20 pl-3 pr-4 bg-gradient-to-b from-amber-200 to-amber-300 text-white transform transition-all duration-300 ${
+        className={`flex flex-col fixed gap-2 top-0 left-0 h-screen w-56 pt-20 pl-3 pr-4 bg-gradient-to-t from-amber-100 to-amber-200 text-white transform transition-all duration-300 ${
           isOpen ? "translate-x-0" : "-translate-x-64"
         }`}
       >

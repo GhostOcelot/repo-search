@@ -1,21 +1,30 @@
-import { useState } from "react"
 import { useFetch, useDebounce } from "../hooks"
 import Pagination from "../components/Pagination"
-import { RepositoriesData, SortCriteria, SortOrder } from "./types"
-import { GITHUB_BASE_URL, INITIAL_SEARCH_QUERY } from "../const"
+import { RepositoriesData } from "./types"
+import { GITHUB_BASE_URL } from "../const"
 import RepositoryList from "./RepositoryList"
 import Loader from "../components/Loader"
 import CustomSelect from "../components/CustomSelect"
 import DebouncedInput from "../components/CustomInput"
 import { ItemsPerPageOptions, sortCriteriaOptions, sortOrderOptions } from "./helpers"
 import NoEntries from "./NoEntries"
+import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "../store"
+import {
+  changeSortCriteria,
+  changeSortOrder,
+  changeItemsPerPage,
+  changePage,
+  changeQuery,
+} from "../features/githubSearchSlice"
 
 const GithubSearch = () => {
-  const [page, setPage] = useState(1)
-  const [query, setQuery] = useState(INITIAL_SEARCH_QUERY)
-  const [itemsPerPage, setItemsPerPage] = useState(5)
-  const [sortCriteria, setSortCriteria] = useState<SortCriteria>(SortCriteria.stars)
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.descending)
+  // const [query, setQuery] = useState(INITIAL_SEARCH_QUERY)
+
+  const { sortCriteria, sortOrder, page, itemsPerPage, query } = useSelector(
+    (state: RootState) => state.githubSearch,
+  )
+  const dispatch = useDispatch<AppDispatch>()
 
   const debouncedValue = useDebounce(query)
 
@@ -30,14 +39,14 @@ const GithubSearch = () => {
       <div className="flex flex-col gap-2">
         <CustomSelect
           value={sortCriteria}
-          onChange={(e) => setSortCriteria(e.target.value as SortCriteria)}
+          onChange={(e) => dispatch(changeSortCriteria(e.target.value))}
           options={sortCriteriaOptions}
           label="sort by"
           name="sort-by"
         />
         <CustomSelect
           value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value as SortOrder)}
+          onChange={(e) => dispatch(changeSortOrder(e.target.value))}
           options={sortOrderOptions}
           label="sort order"
           name="sort-order"
@@ -45,8 +54,8 @@ const GithubSearch = () => {
         <CustomSelect
           value={itemsPerPage}
           onChange={(e) => {
-            setPage(1)
-            setItemsPerPage(Number(e.target.value))
+            dispatch(changePage(Number(e.target.value)))
+            dispatch(changeItemsPerPage(Number(e.target.value)))
           }}
           options={ItemsPerPageOptions}
           label="items"
@@ -56,15 +65,15 @@ const GithubSearch = () => {
         <DebouncedInput
           value={query}
           onChange={(e) => {
-            setPage(1)
-            setQuery(e.target.value)
+            dispatch(changePage(1))
+            dispatch(changeQuery(e.target.value))
           }}
           label="search"
           id="search-phrase"
         />
       </div>
       {data && numberOfPages > 1 && (
-        <Pagination page={page} numberOfPages={numberOfPages} setPage={setPage} />
+        <Pagination page={page} changePage={changePage} numberOfPages={numberOfPages} />
       )}
       {loading ? <Loader /> : data?.total_count ? <RepositoryList data={data} /> : <NoEntries />}
     </div>

@@ -1,12 +1,11 @@
 import { formatTime } from "./helpers"
-import { useTimer } from "./hooks"
 import { mergeClasses } from "../helpers"
+import { useOutletContext } from "react-router-dom"
+import { TimerContext } from "./types"
 
 const Timer = () => {
-  const { time, isInitialized, isRunning, start, resume, pause, reset } = useTimer({
-    interval: 1000,
-    autoStart: false,
-  })
+  const { time, isInitialized, isRunning, start, resume, pause, reset } =
+    useOutletContext<TimerContext>()
 
   const buttonBaseStyle = "w-[80px] px-3 py-2 rounded-full bg-amber-200 cursor-pointer"
 

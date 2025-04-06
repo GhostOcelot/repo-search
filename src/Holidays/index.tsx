@@ -8,8 +8,8 @@ const Holidays = () => {
     holidaysError,
     countryOptions,
     yearOptions,
-    SelectedCountryCode,
-    SelectedYear,
+    countryCode,
+    year,
     handleCountryChange,
     handleYearChange,
   } = useHolidays()
@@ -17,7 +17,7 @@ const Holidays = () => {
   return (
     <div className="flex-grow w-full mx-auto flex flex-col items-center mb-8 px-8 mt-8 gap-2">
       <CustomSelect
-        value={SelectedCountryCode}
+        value={countryCode}
         onChange={handleCountryChange}
         options={countryOptions}
         label="country"
@@ -25,7 +25,7 @@ const Holidays = () => {
       />
 
       <CustomSelect
-        value={SelectedYear}
+        value={year}
         onChange={handleYearChange}
         options={yearOptions}
         label="year"

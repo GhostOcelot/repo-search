@@ -1,13 +1,15 @@
-import { useState } from "react"
 import { useFetch } from "../hooks"
 import { OPEN_HOLIDAY_BASE_URL } from "../const"
 import { Country, Holiday } from "./types"
+import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "../store"
+import { changeCountry, changeYear } from "../features/holidaysSlice"
 
 export const useHolidays = () => {
-  const [SelectedCountryCode, setSelectedCountryCode] = useState("NL")
-  const [SelectedYear, setSelectedYear] = useState(new Date().getFullYear())
+  const { countryCode, year } = useSelector((state: RootState) => state.holidays)
+  const dispatch = useDispatch<AppDispatch>()
 
-  const holidaysUrl = `${OPEN_HOLIDAY_BASE_URL}/PublicHolidays?countryIsoCode=${SelectedCountryCode}&validFrom=${SelectedYear}-01-01&validTo=${SelectedYear}-12-31&languageIsoCode=EN`
+  const holidaysUrl = `${OPEN_HOLIDAY_BASE_URL}/PublicHolidays?countryIsoCode=${countryCode}&validFrom=${year}-01-01&validTo=${year}-12-31&languageIsoCode=EN`
   const countriesUrl = `${OPEN_HOLIDAY_BASE_URL}/Countries?languageIsoCode=EN`
 
   const { data: countries } = useFetch<Country[]>(countriesUrl)
@@ -19,12 +21,12 @@ export const useHolidays = () => {
 
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     fetchHolidays()
-    setSelectedCountryCode(e.target.value)
+    dispatch(changeCountry(e.target.value))
   }
 
   const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     fetchHolidays()
-    setSelectedYear(Number(e.target.value))
+    dispatch(changeYear(Number(e.target.value)))
   }
 
   const countryOptions =
@@ -43,8 +45,8 @@ export const useHolidays = () => {
     holidaysError,
     countryOptions,
     yearOptions,
-    SelectedCountryCode,
-    SelectedYear,
+    countryCode,
+    year,
     handleCountryChange,
     handleYearChange,
   }

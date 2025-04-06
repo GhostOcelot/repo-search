@@ -1,4 +1,7 @@
-import { useEffect, useRef, useState } from "react"
+import { AppDispatch, RootState } from "../store"
+import { useEffect, useRef } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { changeTime, changeIsRunning, changeIsInitialized } from "../features/timerSlice"
 
 type UseTimerOptions = {
   interval?: number
@@ -9,13 +12,12 @@ type UseTimerOptions = {
 
 export const useTimer = ({
   interval = 1000,
-  autoStart = true,
+  autoStart = false,
   countdown = false,
   initialTime = 0,
 }: UseTimerOptions = {}) => {
-  const [time, setTime] = useState(initialTime)
-  const [isRunning, setIsRunning] = useState(autoStart)
-  const [isInitialized, setIsInitialized] = useState(autoStart)
+  const { time, isRunning, isInitialized } = useSelector((state: RootState) => state.timer)
+  const dispatch = useDispatch<AppDispatch>()
 
   const startTimeRef = useRef<number | null>(null)
   const pauseTimeRef = useRef<number | null>(null)
@@ -28,7 +30,7 @@ export const useTimer = ({
 
     const updatedTime = countdown ? Math.max(initialTime - elapsed, 0) : initialTime + elapsed
 
-    setTime(updatedTime)
+    dispatch(changeTime(updatedTime))
   }
 
   const startInterval = () => {
@@ -48,8 +50,8 @@ export const useTimer = ({
     if (isRunning) return
     startTimeRef.current = Date.now()
     pauseTimeRef.current = null
-    setIsRunning(true)
-    setIsInitialized(true)
+    dispatch(changeIsRunning(true))
+    dispatch(changeIsInitialized(true))
     startInterval()
   }
 
@@ -57,7 +59,7 @@ export const useTimer = ({
     if (!isRunning) return
     clearTimer()
     pauseTimeRef.current = Date.now()
-    setIsRunning(false)
+    dispatch(changeIsRunning(false))
   }
 
   const resume = () => {
@@ -69,21 +71,21 @@ export const useTimer = ({
     }
 
     pauseTimeRef.current = null
-    setIsRunning(true)
+    dispatch(changeIsRunning(true))
     startInterval()
   }
 
   const reset = () => {
     clearTimer()
-    setTime(initialTime)
+    dispatch(changeTime(initialTime))
     startTimeRef.current = Date.now()
     pauseTimeRef.current = null
     if (autoStart) {
-      setIsRunning(true)
+      dispatch(changeIsRunning(true))
       startInterval()
     } else {
-      setIsRunning(false)
-      setIsInitialized(false)
+      dispatch(changeIsRunning(false))
+      dispatch(changeIsInitialized(false))
     }
   }
 

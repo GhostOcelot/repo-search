@@ -1,18 +1,23 @@
-import { handlePageChange } from "../GithubSearch/helpers"
+import { useDispatch } from "react-redux"
+import { AppDispatch } from "../store"
+import { changePage } from "../features/githubSearchSlice"
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit"
 
 interface Props {
   page: number
+  changePage: ActionCreatorWithPayload<number, "github-search/changePage">
   numberOfPages: number
-  setPage: React.Dispatch<React.SetStateAction<number>>
 }
 
-const Pagination = ({ page, numberOfPages, setPage }: Props) => {
+const Pagination = ({ page, numberOfPages }: Props) => {
+  const dispatch = useDispatch<AppDispatch>()
+
   const getPageNumbers = () => {
-    let pages: (string | number)[] = [1]
+    const pages: (string | number)[] = [1]
     if (page > 3) pages.push("...")
 
-    let start = Math.max(2, page - 1)
-    let end = Math.min(numberOfPages - 1, page + 1)
+    const start = Math.max(2, page - 1)
+    const end = Math.min(numberOfPages - 1, page + 1)
 
     for (let i = start; i <= end; i++) {
       pages.push(i)
@@ -26,15 +31,12 @@ const Pagination = ({ page, numberOfPages, setPage }: Props) => {
 
   return (
     <div className="flex justify-center mt-8">
-      <button
-        className={`mx-2 hover:text-amber-600`}
-        onClick={() => handlePageChange(setPage, numberOfPages, page, "first")}
-      >
+      <button className={`mx-2 hover:text-amber-600`} onClick={() => dispatch(changePage(1))}>
         first
       </button>
       <button
         className={`mx-2 hover:text-amber-600`}
-        onClick={() => handlePageChange(setPage, numberOfPages, page, "previous")}
+        onClick={() => dispatch(changePage(page - 1))}
       >
         previous
       </button>
@@ -43,7 +45,7 @@ const Pagination = ({ page, numberOfPages, setPage }: Props) => {
           <button
             key={index}
             className={`mx-2 hover:text-amber-600 ${item === page && "text-amber-600"}`}
-            onClick={() => handlePageChange(setPage, numberOfPages, item)}
+            onClick={() => dispatch(changePage(item))}
           >
             {item}
           </button>
@@ -55,13 +57,13 @@ const Pagination = ({ page, numberOfPages, setPage }: Props) => {
       )}
       <button
         className={`mx-2 hover:text-amber-600`}
-        onClick={() => handlePageChange(setPage, numberOfPages, page, "next")}
+        onClick={() => dispatch(changePage(page + 1))}
       >
         next
       </button>
       <button
         className={`mx-2 hover:text-amber-600`}
-        onClick={() => handlePageChange(setPage, numberOfPages, page, "last")}
+        onClick={() => dispatch(changePage(numberOfPages))}
       >
         last
       </button>
