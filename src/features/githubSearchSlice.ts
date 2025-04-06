@@ -32,10 +32,10 @@ const githubSearchSlice = createSlice({
       return { ...state, page: action.payload }
     },
     changeItemsPerPage: (state, action: PayloadAction<number>) => {
-      return { ...state, itemsPerPage: action.payload }
+      return { ...state, page: 1, itemsPerPage: action.payload }
     },
     changeQuery: (state, action: PayloadAction<string>) => {
-      return { ...state, query: action.payload }
+      return { ...state, page: 1, query: action.payload }
     },
   },
 })
