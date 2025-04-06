@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router-dom"
 import { mergeClasses } from "../helpers"
 import { NAV_LINKS } from "../const"
 
-interface IndicatorStyle {
+export interface IndicatorStyle {
   left: number
   width: number
 }
