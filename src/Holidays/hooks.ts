@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useFetch } from "../hooks"
-import { OPEN_HOLIDAY_BASE_URL } from "./const"
+import { OPEN_HOLIDAY_BASE_URL } from "../const"
 import { Country, Holiday } from "./types"
 
 export const useHolidays = () => {

@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react"
-import { INITIAL_SEARCH_QUERY } from "./GithubSearch/const"
+import { INITIAL_SEARCH_QUERY } from "./const"
 
 export const useFetch = <T>(url: string, autoFetch: boolean = true) => {
   const [data, setData] = useState<T | null>(null)

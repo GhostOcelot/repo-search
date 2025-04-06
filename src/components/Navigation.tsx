@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react"
 import { NavLink, useLocation } from "react-router-dom"
 import { mergeClasses } from "../helpers"
+import { NAV_LINKS } from "../const"
 
 interface IndicatorStyle {
   left: number
@@ -10,12 +11,6 @@ interface IndicatorStyle {
 interface Props {
   className?: string
 }
-
-export const navLinks = [
-  { label: "Github search", path: "/" },
-  { label: "National Holidays", path: "/holidays" },
-  { label: "Timer", path: "/timer" },
-]
 
 const Navigation = ({ className }: Props) => {
   const location = useLocation()
@@ -57,7 +52,7 @@ const Navigation = ({ className }: Props) => {
           ...indicatorStyle,
         }}
       />
-      {navLinks.map((link) => (
+      {NAV_LINKS.map((link) => (
         <NavLink
           key={link.label}
           className={({ isActive }) =>
