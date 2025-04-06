@@ -2,10 +2,9 @@ import { InputHTMLAttributes } from "react"
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
-  delay?: number
 }
 
-const DebouncedInput = ({ label, delay, ...props }: Props) => {
+const DebouncedInput = ({ label, ...props }: Props) => {
   return (
     <div className="flex items-center justify-center bg-amber-200 rounded-full pr-2">
       {label && (

@@ -15,7 +15,7 @@ const Holidays = () => {
   } = useHolidays()
 
   return (
-    <div className="flex-grow w-full mx-auto flex flex-col items-center mb-8 px-8 gap-2">
+    <div className="flex-grow w-full mx-auto flex flex-col items-center mb-8 px-8 mt-8 gap-2">
       <CustomSelect
         value={SelectedCountryCode}
         onChange={handleCountryChange}

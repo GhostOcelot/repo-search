@@ -3,6 +3,7 @@ import Layout from "./Layout"
 import GithubSearch from "./GithubSearch"
 import Holidays from "./Holidays"
 import NotFound from "./NotFound"
+import Timer from "./Timer"
 
 const Routes = () => {
   const routes = useRoutes([
@@ -12,6 +13,7 @@ const Routes = () => {
       children: [
         { index: true, element: <GithubSearch /> },
         { path: "holidays", element: <Holidays /> },
+        { path: "timer", element: <Timer /> },
         { path: "*", element: <NotFound /> },
       ],
     },

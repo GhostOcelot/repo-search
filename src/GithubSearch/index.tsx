@@ -26,7 +26,7 @@ const GithubSearch = () => {
   const numberOfPages = data ? Math.ceil(data.total_count / itemsPerPage) : 0
 
   return (
-    <div className="flex-grow flex flex-col items-center px-8">
+    <div className="flex-grow flex flex-col items-center px-8 mt-8">
       <div className="flex flex-col gap-2">
         <CustomSelect
           value={sortCriteria}
@@ -61,7 +61,6 @@ const GithubSearch = () => {
           }}
           label="search"
           id="search-phrase"
-          delay={1000}
         />
       </div>
       {data && numberOfPages > 1 && (

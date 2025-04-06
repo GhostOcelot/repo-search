@@ -1,17 +1,23 @@
 import { useLayoutEffect, useRef, useState } from "react"
 import { NavLink, useLocation } from "react-router-dom"
+import { mergeClasses } from "../helpers"
 
 interface IndicatorStyle {
   left: number
   width: number
 }
 
-const Navigation = () => {
-  const navLinks = [
-    { label: "Github search", path: "/" },
-    { label: "National Holidays", path: "/holidays" },
-  ]
+interface Props {
+  className?: string
+}
 
+export const navLinks = [
+  { label: "Github search", path: "/" },
+  { label: "National Holidays", path: "/holidays" },
+  { label: "Timer", path: "/timer" },
+]
+
+const Navigation = ({ className }: Props) => {
   const location = useLocation()
   const [indicatorStyle, setIndicatorStyle] = useState<IndicatorStyle | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -38,7 +44,13 @@ const Navigation = () => {
   }, [location.pathname])
 
   return (
-    <nav ref={containerRef} className="relative bg-amber-200 py-6 flex justify-center mb-8">
+    <nav
+      ref={containerRef}
+      className={mergeClasses(
+        "relative bg-amber-200 py-6 flex justify-center",
+        className ? className : "",
+      )}
+    >
       <div
         className="absolute top-4 h-10 bg-white rounded-full transition-all duration-300"
         style={{
