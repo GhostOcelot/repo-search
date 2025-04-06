@@ -21,7 +21,7 @@ const Timer = () => {
         <button
           className={mergeClasses(
             buttonBaseStyle,
-            isInitialized ? "cursor-pointer" : "text-gray-300 bg-amber-100 cursor-default",
+            isInitialized ? "cursor-pointer" : "text-gray-400 bg-amber-100 cursor-default",
           )}
           onClick={reset}
         >

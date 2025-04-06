@@ -17,6 +17,7 @@ export const useFetch = <T>(url: string, autoFetch: boolean = true) => {
       const result: T = await response.json()
       setData(result)
     } catch (err) {
+      console.log(err)
       setError((err as Error).message)
     } finally {
       setLoading(false)
@@ -31,7 +32,7 @@ export const useFetch = <T>(url: string, autoFetch: boolean = true) => {
 }
 
 export const useDebounce = (value: string, delay = 700) => {
-  const [debouncedValue, setDebouncedValue] = useState(INITIAL_SEARCH_QUERY)
+  const [debouncedValue, setDebouncedValue] = useState(value || INITIAL_SEARCH_QUERY)
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -39,7 +40,7 @@ export const useDebounce = (value: string, delay = 700) => {
     }, delay)
 
     return () => clearTimeout(handler)
-  }, [value])
+  }, [delay, value])
 
   return debouncedValue
 }

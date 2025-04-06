@@ -17,6 +17,7 @@ import {
   changePage,
   changeQuery,
 } from "../features/githubSearchSlice"
+import FetchError from "../components/FetchError"
 
 const GithubSearch = () => {
   const { sortCriteria, sortOrder, page, itemsPerPage, query } = useSelector(
@@ -26,7 +27,7 @@ const GithubSearch = () => {
 
   const debouncedValue = useDebounce(query)
 
-  const { data, loading } = useFetch<RepositoriesData>(
+  const { data, loading, error } = useFetch<RepositoriesData>(
     `${GITHUB_BASE_URL}/search/repositories?q=${debouncedValue}&page=${page}&per_page=${itemsPerPage}&sort=${sortCriteria}&order=${sortOrder}`,
   )
 
@@ -76,7 +77,15 @@ const GithubSearch = () => {
       {data && numberOfPages > 1 && (
         <Pagination page={page} changePage={changePage} numberOfPages={numberOfPages} />
       )}
-      {loading ? <Loader /> : data?.total_count ? <RepositoryList data={data} /> : <NoEntries />}
+      {loading ? (
+        <Loader />
+      ) : data?.total_count ? (
+        <RepositoryList data={data} />
+      ) : error ? (
+        <FetchError />
+      ) : (
+        <NoEntries />
+      )}
     </div>
   )
 }

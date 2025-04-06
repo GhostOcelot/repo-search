@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux"
 import { AppDispatch } from "../store"
 import { changePage } from "../features/githubSearchSlice"
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit"
+import { mergeClasses } from "../helpers"
 
 interface Props {
   page: number
@@ -35,8 +36,12 @@ const Pagination = ({ page, numberOfPages }: Props) => {
         first
       </button>
       <button
-        className={`mx-2 hover:text-amber-600`}
+        className={mergeClasses(
+          "mx-2 hover:text-amber-600",
+          page < 2 ? "text-gray-300 hover:text-gray-300" : "",
+        )}
         onClick={() => dispatch(changePage(page - 1))}
+        disabled={page < 2}
       >
         previous
       </button>
@@ -56,7 +61,11 @@ const Pagination = ({ page, numberOfPages }: Props) => {
         ),
       )}
       <button
-        className={`mx-2 hover:text-amber-600`}
+        className={mergeClasses(
+          "mx-2 hover:text-amber-600",
+          page > numberOfPages - 1 ? "text-gray-300 hover:text-gray-300" : "",
+        )}
+        disabled={page > numberOfPages - 1}
         onClick={() => dispatch(changePage(page + 1))}
       >
         next
